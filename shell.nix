@@ -25,6 +25,10 @@ pkgs.mkShell{
 	ipykernel
 	ipywidgets
 	jupyterlab
+
+	# Copilot
+	pkgs.vscode
+	pkgs.gnome.gnome-keyring
 	];
 }
 
