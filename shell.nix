@@ -1,5 +1,5 @@
 { pkgs ? import <nixpkgs> { } }:
-with pkgs.python38Packages;
+with pkgs.python39Packages;
 let
   mach-nix = import
     (
@@ -14,7 +14,7 @@ let
       pypiDataSha256 = "0zayz2flj46gf6gc3h9ip9i2fkpff50qiyjnrrpcgxjyxnq4rndz";
     };
   custom-python = mach-nix.mkPython {
-    python = "python38Full";
+    python = "python39Full";
     requirements = ''
       gym[atari]
     '';
@@ -29,5 +29,11 @@ with pkgs; mkShell {
   buildInputs = [
     custom-python
     pyglet
+
+    # jupyter nb
+    jupyter
+    ipykernel
+    ipywidgets
+    jupyterlab
   ];
 }
