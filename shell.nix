@@ -17,6 +17,7 @@ let
     python = "python39Full";
     requirements = ''
       gym[atari]
+      JSAnimation
     '';
     _.atari-py = {
       nativeBuildInputs.add = with pkgs; [ cmake ];
@@ -35,5 +36,8 @@ with pkgs; mkShell {
     ipykernel
     ipywidgets
     jupyterlab
+    pkgs.vlc
+    # Tensorflow
+    tensorflow
   ];
 }
