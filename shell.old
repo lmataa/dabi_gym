@@ -1,0 +1,51 @@
+{ pkgs ? (import <nixpkgs> {}).pkgs }:
+with pkgs.python39Packages;
+
+pkgs.mkShell{
+  venvDir = "./.venvDirAtari";
+  name = "impureAtariEnv";
+  buildInputs = [
+	# poetry env
+	pkgs.python39
+	pkgs.poetry
+
+	# python libs - rather basic
+	numpy
+	networkx
+	pkgs.libspatialindex
+	dateutil
+	pandas
+	Rtree
+
+	# openai gym deps
+	gym
+	pyglet
+	opencv3
+
+	# jupyter nb
+	jupyter
+	ipykernel
+	ipywidgets
+	jupyterlab
+
+	# Copilot
+	#pkgs.vscode
+	#pkgs.gnome.gnome-keyring
+	
+	# pip deps
+	pip
+	setuptools
+	venvShellHook
+	wheel
+	];
+  # Run this command, only after creating the virtual environment
+  postVenvCreation = ''
+    unset SOURCE_DATE_EPOCH
+    pip install atari-py -U
+  '';
+  postShellHook = ''
+    # allow pip to install wheels
+    unset SOURCE_DATE_EPOCH
+  '';
+}
+

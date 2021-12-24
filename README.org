@@ -1,0 +1,15 @@
+* Environments
+
+** SpaceInvaders
+
+Atari 2600 game SpaceInvaders. In this environment, the observation is an RGB image of the screen, which is an array of shape (210, 160, 3) Each action is repeatedly performed for a duration of kkk frames, where kkk is uniformly sampled from {2,3,4}\{2, 3, 4\}{2,3,4}.
+
+
+- Actions : Discrete(6)
+
+Action 0 : Nothing
+Action 1 : Shoot
+Action 2 : Go right
+Action 3 : Go left
+Action 4 : Go right and Shoot
+Action 5 : Go left and Shoot
