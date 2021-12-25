@@ -26,21 +26,51 @@ For updating the dependencies, please use the following commands:
 conda env update -n gym --file environment.yml
 #+END_SRC
 
-** Frozen Lake
+** FrozenLake8x8-v1
 
-From the base pacakge.
+- Toy text
 
-** Lunar Lander
+- Simple text environments to get you started.
 
-From the package box2d.
+[[https://gym.openai.com/envs/FrozenLake8x8-v0/][Environment FrozenLake]] is a standard environment for reinforcement learning from the _base package_.
+The agent controls the movement of a character in a grid world.
+Some tiles of the grid are walkable, and others lead to the agent falling into the water.
+Additionally, the movement direction of the agent is uncertain and only partially depends on the chosen direction.
+The agent is rewarded for finding a walkable path to a goal tile.
 
-** SpaceInvaders
+The surface is described using a grid like the following:
 
-From the package atari.
+#+BEGIN_SRC
+SFFF       (S: starting point, safe)
+FHFH       (F: frozen surface, safe)
+FFFH       (H: hole, fall to your doom)
+HFFG       (G: goal, where the frisbee is located)
+#+END_SRC
 
-Atari 2600 game SpaceInvaders.
-In this environment, the observation is an RGB image of the screen, which is an array of shape (210, 160, 3).
-Each action is repeatedly performed for a duration of kkk frames, where kkk is uniformly sampled from {2,3,4}\{2, 3, 4\}{2,3,4}.
+** LunarLander-v2
+
+- Box2D
+
+- Continuous control tasks in the Box2D simulator.
+
+
+[[https://gym.openai.com/envs/LunarLander-v2/][Environment LunarLander]] is a standard environment for reinforcement learning from the _box2d_.
+Landing pad is always at coordinates (0,0).
+Coordinates are the first two numbers in state vector.
+Reward for moving from the top of the screen to landing pad and zero speed is about 100..140 points.
+If lander moves away from landing pad it loses reward back. Episode finishes if the lander crashes or comes to rest, receiving additional -100 or +100 points.
+Each leg ground contact is +10. Firing main engine is -0.3 points each frame. Solved is 200 points. Landing outside landing pad is possible.
+Fuel is infinite, so an agent can learn to fly and then land on its first attempt.
+Four discrete actions available: do nothing, fire left orientation engine, fire main engine, fire right orientation engine.
+
+
+** SpaceInvaders-v0
+
+[[https://gym.openai.com/envs/SpaceInvaders-v0/][Environment SpaceInvaders]] is simulated through the Arcade Learning Environment [[https://github.com/mgbellemare/Arcade-Learning-Environment][ALE]], which uses the Stella [[https://stella-emu.github.io/][Stella]] Atari emulator.
+
+Maximize your score in the Atari 2600 game SpaceInvaders.
+In this environment, the observation is an RGB image of the screen, which is an array of shape (210, 160, 3) 
+Each action is repeatedly performed for a duration of kkk frames, where kkk is uniformly sampled from {2,3,4}.
 
 Action space : Discrete(6):
 
