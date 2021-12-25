@@ -1,15 +1,43 @@
-* Environments
+* Deep Q Learning with Tensorflow and OpenAI Gym
+
+This repository contains several implementations of RL algorithms for the final project of the course in Bioinspired Algorithms for the interuniversity master of formal methods in computer science at the universities UPM, UAM, UCM.
+
+There are different environment implementations for different kind of problems but all can be solved with reinforcement learning, as such I have tested different implementations in a selection of those environments. 
+The scope of the project is to implement different reinforcement learning algorithms for different environments and compare both the performance and generalization of the algorithms.
+
+There is also a concern about the dependencies of OpenAI gym. In this project I have set up the installation to contain box2d and the atari games package. A conda environment is also set up to install the dependencies.
+But the main module for developing the project is under shell.nix specifing the compilation and nix dependencies.
+
+**  Repo organization
+
+- dev :  development folder
+- scripts: scripts and utils for the project
+- frozen_lake: programs relating the environment frozen_lake
+- lunar_lander: programs relating the environment lunar_lander
+- space_invaders: programs relating the environment space_invaders
+
+
+** Frozen Lake
+
+From the base pacakge.
+
+** Lunar Lander
+
+From the package box2d.
 
 ** SpaceInvaders
 
-Atari 2600 game SpaceInvaders. In this environment, the observation is an RGB image of the screen, which is an array of shape (210, 160, 3) Each action is repeatedly performed for a duration of kkk frames, where kkk is uniformly sampled from {2,3,4}\{2, 3, 4\}{2,3,4}.
+From the package atari.
 
+Atari 2600 game SpaceInvaders.
+In this environment, the observation is an RGB image of the screen, which is an array of shape (210, 160, 3).
+Each action is repeatedly performed for a duration of kkk frames, where kkk is uniformly sampled from {2,3,4}\{2, 3, 4\}{2,3,4}.
 
-- Actions : Discrete(6)
+Action space : Discrete(6):
 
-Action 0 : Nothing
-Action 1 : Shoot
-Action 2 : Go right
-Action 3 : Go left
-Action 4 : Go right and Shoot
-Action 5 : Go left and Shoot
+- Action 0 : Nothing
+- Action 1 : Shoot
+- Action 2 : Go right
+- Action 3 : Go left
+- Action 4 : Go right and Shoot
+- Action 5 : Go left and Shoot
