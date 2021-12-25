@@ -8,7 +8,7 @@ The scope of the project is to implement different reinforcement learning algori
 There is also a concern about the dependencies of OpenAI gym. In this project I have set up the installation to contain box2d and the atari games package. A conda environment is also set up to install the dependencies.
 But the main module for developing the project is under shell.nix specifing the compilation and nix dependencies.
 
-
+- OpenAI Gym paper: [[https://arxiv.org/pdf/1606.01540.pdf]]
 
 **  Repo organization
 
