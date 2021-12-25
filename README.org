@@ -8,6 +8,8 @@ The scope of the project is to implement different reinforcement learning algori
 There is also a concern about the dependencies of OpenAI gym. In this project I have set up the installation to contain box2d and the atari games package. A conda environment is also set up to install the dependencies.
 But the main module for developing the project is under shell.nix specifing the compilation and nix dependencies.
 
+
+
 **  Repo organization
 
 - dev :  development folder
@@ -15,7 +17,14 @@ But the main module for developing the project is under shell.nix specifing the 
 - frozen_lake: programs relating the environment frozen_lake
 - lunar_lander: programs relating the environment lunar_lander
 - space_invaders: programs relating the environment space_invaders
+- environment.yml: conda environment file
+- shell.nix: nix file for the project
 
+For updating the dependencies, please use the following commands:
+
+#+BEGIN_SRC shell
+conda env update --no-builds -n TunTun --file environment.yml
+#+END_SRC
 
 ** Frozen Lake
 
