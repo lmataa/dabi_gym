@@ -24,7 +24,7 @@ def plot_learning_curve(x, scores, epsilons, filename, lines=None):
     ax2.yaxis.tick_right()
     ax2.set_ylabel('Score', color="C1")
     ax2.yaxis.set_label_position('right')
-    ax2.tick_params(axis='y'. colors="C1")
+    ax2.tick_params(axis='y', colors="C1")
 
     if lines is not None:
         for line in lines:
@@ -39,13 +39,13 @@ if __name__ == '__main__':
     lr = 0.001
 
     print(input_dims)
-    agent = Agent(gamma=0.99, epsilon=1.0, epsilon_dec=0.995, epsilon_end=0.01,
+    agent = Agent(gamma=0.99, epsilon=1.0, epsilon_dec=0.00001955, epsilon_end=0.01,
                     lr=lr, batch_size=64, n_actions=n_actions,
                     input_dims=input_dims, mem_size=1000000,
                     fname='lunar_lander.h5')
     scores = []
     eps_history = []
-    num_games = 500
+    num_games = 2500
     for i in range(num_games):
         done = False
         score = 0
@@ -65,6 +65,7 @@ if __name__ == '__main__':
         print('episode ', i, 'score %.2f' % score,
                 'average score %.2f' % avg_score,
                 'epsilon % .2f' % agent.epsilon)
+    agent.save_model()
     filename = "lunalander_tf2.png"
-    x=[i+1 for i in range(len(num_games))]
+    x=[i+1 for i in range(num_games)]
     plot_learning_curve(x, scores, eps_history, filename)

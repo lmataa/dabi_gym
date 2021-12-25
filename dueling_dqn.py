@@ -1,16 +1,17 @@
 import tensorflow as tf
-import tensorlfow.keras as keras
+import tensorflow.keras as keras
 from tensorflow.keras.optimizers import Adam
 import numpy as np
 
 class DuelingDeepQNetwork(keras.Model):
     def __init__(self, fc1_dims, fc2_dims, n_actions):
+        super(DuelingDeepQNetwork, self).__init__()
         self.dense1 = keras.layers.Dense(fc1_dims, activation='relu')
         self.dense2 = keras.layers.Dense(fc2_dims, activation='relu')
         # value head
-        self.V = keras.layer.Dense(1, activation=None)
+        self.V = keras.layers.Dense(1, activation=None)
         # advantage layer
-        self.A = keras.layer.Dense(n_actions, activation=None)
+        self.A = keras.layers.Dense(n_actions, activation=None)
 
     def call(self, state):
         x = self.dense1(state)
@@ -32,6 +33,9 @@ class DuelingDeepQNetwork(keras.Model):
         # advantage head
         A = self.A(x)
         return A
+    
+    def save(self, path):
+        self.save_weights(path)
 
 class ReplayBuffer():
     def __init__(self, max_size, input_shape):
@@ -68,7 +72,7 @@ class ReplayBuffer():
 class Agent():
     def __init__(self, lr, gamma, n_actions, epsilon, batch_size,
     input_dims, epsilon_dec=1e-3, epsilon_end=0.01,
-    mem_size=100000, fname='dueling_dqn.h5', fc1_dims=128, fc2_dims=128, replace=100):
+    mem_size=100000, fname='dueling_dqn', fc1_dims=128, fc2_dims=128, replace=100):
         """
         LR: learning rate
         Gamma: discount factor

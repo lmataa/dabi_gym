@@ -1,5 +1,4 @@
 import numpy as np
-from numpy.core.einsumfunc import _OptimizeKind
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.optimizers import Adam
@@ -8,8 +7,8 @@ class ReplayBuffer():
     def __init__(self, max_size, input_dims):
         self.mem_size = max_size
         self.mem_cntr = 0
-        self.state_memory = np.zeros((self.mem_size, *input_dims), dtype=np.float32)) 
-        self.new_state_memory = np.zeros((self.mem_size, *input_dims), dtype=np.float32))
+        self.state_memory = np.zeros((self.mem_size, *input_dims), dtype=np.float32)
+        self.new_state_memory = np.zeros((self.mem_size, *input_dims), dtype=np.float32)
         self.action_memory = np.zeros(self.mem_size, dtype=np.int32)
         self.reward_memory = np.zeros(self.mem_size, dtype=np.float32)
         self.terminal_memory = np.zeros(self.mem_size, dtype=np.bool)
@@ -50,6 +49,7 @@ class Agent():
     input_dims, epsilon_dec=1e-3, epsilon_end=0.01,
     mem_size=1000000, fname='dqn_model.h5'):
         self.action_space = [i for i in range(n_actions)]
+        self.input_dims = input_dims
         self.lr = lr
         self.gamma = gamma
         self.n_actions = n_actions
@@ -61,8 +61,8 @@ class Agent():
         self.memory = ReplayBuffer(mem_size, input_dims)
         self.q_eval = build_dqn(self.lr, self.n_actions, self.input_dims, 250, 250)
     
-    def store_transition(self, state, action, reward, new_state, done):
-        self.memory.store_transition(state, action, reward, new_state, done)
+    def remember(self, state, action, reward, new_state, done):
+        self.memory.remember(state, action, reward, new_state, done)
 
     def choose_action(self, obs):
         """
