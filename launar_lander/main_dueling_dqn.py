@@ -1,7 +1,7 @@
 from dueling_dqn import Agent
 import numpy as np
 import gym
-from lunar_lander import plot_learning_curve
+from utils import plot_learning_curve
 
 if __name__ == '__main__':
     env = gym.make('LunarLander-v2')
