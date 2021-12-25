@@ -23,7 +23,7 @@ But the main module for developing the project is under shell.nix specifing the 
 For updating the dependencies, please use the following commands:
 
 #+BEGIN_SRC shell
-conda env update --no-builds -n gym --file environment.yml
+conda env update -n gym --file environment.yml
 #+END_SRC
 
 ** Frozen Lake
