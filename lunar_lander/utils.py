@@ -4,7 +4,7 @@ import logging
 import numpy as np
 import matplotlib.pyplot as plt
 
-def plot_learning_curve(x, scores, epsilons, filename, lines=None):
+def plot_learning_curve(x, scores, epsilons, file, lines=None):
     fig = plt.figure()
     ax = fig.add_subplot(111, label="1")
     ax2 = fig.add_subplot(111, label="2", frame_on=False)
@@ -28,7 +28,7 @@ def plot_learning_curve(x, scores, epsilons, filename, lines=None):
     if lines is not None:
         for line in lines:
             plt.axvline(x=line)
-    plt.savefig(filename)
+    plt.savefig(file)
 
 def set_verbosity(verbose):
     if verbose:
@@ -66,29 +66,70 @@ class DefaultParser(argparse.ArgumentParser):
             help="Path to create the file system.")
 
         self.add_argument(
-                    "-v",
-                    "--verbose",
-                    action="store_true",
-                    default=False,
-                    help="Verbose mode.")
+            "-v",
+            "--verbose",
+            action="store_true",
+            default=False,
+            help="Verbose mode.")
 
         self.add_argument(
-                    "-d",
-                    "--n_drivers",
-                    type=int,
-                    default=defaults["n_drivers"],
-                    help="Total number of drivers to test with.")
+            "-exp_name",
+            nargs="?",
+            default=defaults["exp_name"],
+            help="Name of the experiment.")
+
+        self.add_argument(
+            "-e",
+            "--epochs",
+            type=int,
+            default=defaults["epochs"],
+            help="Number of epochs.")
+
+        self.add_argument(
+            "-b",
+            "--batch_size",
+            type=int,
+            default=defaults["batch_size"],
+            help="Batch size.")
+
+        self.add_argument(
+            "-g",
+            "--gamma",
+            type=float,
+            default=defaults["gamma"],
+            help="Discount factor.")
         
         self.add_argument(
-                    "-o",
-                    "--n_orders",
-                    type=int,
-                    default=defaults["n_orders"],
-                    help="Total number of orders to test with.")
+            "-lr",
+            "--learning_rate",
+            type=float,
+            default=defaults["learning_rate"],
+            help="Learning rate.")
+
+        self.add_argument(
+            "-eps",
+            "--epsilon",
+            type=float,
+            default=defaults["epsilon"],
+            help="Maximum exploration rate.")
         
         self.add_argument(
-                    "-s",
-                    "--simple_run",
-                    action="store_true",
-                    default=False,
-                    help="Run the test in simple mode.")
+            "-d",
+            "--decay",
+            type=float,
+            default=defaults["epsilon_decay"],
+            help="Rate of decay of exploration rate.")
+        
+        self.add_argument(
+            "-m",
+            "--epsilon_min",
+            type=float,
+            default=defaults["epsilon_min"],
+            help="Minimum exploration rate.")
+        
+        self.add_argument(
+            "-mem",
+            "--memory_size",
+            type=int,
+            default=defaults["memory_size"],
+            help="Total memory size.")

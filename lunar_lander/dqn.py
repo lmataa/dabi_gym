@@ -2,6 +2,7 @@ import numpy as np
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.optimizers import Adam
+from pathlib import Path
 
 class ReplayBuffer():
     def __init__(self, max_size, input_dims):
@@ -47,7 +48,7 @@ def build_dqn(lr, n_actions, input_dim, fc1_dims, fc2_dims):
 class Agent():
     def __init__(self, lr, gamma, n_actions, epsilon, batch_size,
     input_dims, epsilon_dec=1e-3, epsilon_end=0.01,
-    mem_size=1000000, fname='dqn_model.h5'):
+    mem_size=1000000, output_path = Path(__file__).parent/'output', fname='dqn_model.h5'):
         self.action_space = [i for i in range(n_actions)]
         self.input_dims = input_dims
         self.lr = lr
@@ -58,6 +59,7 @@ class Agent():
         self.epsilon_min = epsilon_end
         self.batch_size = batch_size
         self.model_file = fname
+        self.output_path = output_path
         self.memory = ReplayBuffer(mem_size, input_dims)
         self.q_eval = build_dqn(self.lr, self.n_actions, self.input_dims, 250, 250)
     
@@ -100,10 +102,13 @@ class Agent():
 
         self.epsilon = self.epsilon - self.epsilon_dec if self.epsilon > self.epsilon_min else self.epsilon_min
     
-    def save_model(self):
-        self.q_eval.save(self.model_file)
+    def save_model(self, i):
+        self.q_eval.save(self.output_path/f"{self.model_file}_{i:>04}.h5")
 
     def load_model(self):
-        self.q_eval = keras.models.load_model(self.model_file)
+        """
+        Not really used.
+        """
+        self.q_eval = keras.models.load_model(self.output_path/self.model_file)
 
     
