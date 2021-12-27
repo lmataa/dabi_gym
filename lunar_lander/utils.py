@@ -8,10 +8,10 @@ def plot_learning_curve(x, scores, epsilons, file, lines=None):
     fig = plt.figure()
     ax = fig.add_subplot(111, label="1")
     ax2 = fig.add_subplot(111, label="2", frame_on=False)
-    
-    ax.plot(x, epsilons, color="C0")
+    if epsilons:
+        ax.plot(x, epsilons, color="C0")
+        ax.set_ylabel("Epsilon", color="C0")
     ax.set_xlabel("Game", color="C0")
-    ax.set_ylabel("Epsilon", color="C0")
     ax.tick_params(axis='x', colors="C0")
     ax.tick_params(axis='y', colors="C0")
 
@@ -133,3 +133,109 @@ class DefaultParser(argparse.ArgumentParser):
             type=int,
             default=defaults["memory_size"],
             help="Total memory size.")
+
+class QLearningParser(argparse.ArgumentParser):
+    """
+    Parser for Q-Learning.
+    """
+    def __init__(self, *args, defaults, **kwargs):
+        kwargs["formatter_class"] = argparse.ArgumentDefaultsHelpFormatter
+        super().__init__(*args, **kwargs)
+        self.add_arguments(defaults)
+    
+    def set_verbosity(self, verbose):
+        set_verbosity(verbose)
+
+    def handle(self, args):
+        self.set_verbosity(args.verbose)
+        if type(args.path) is PosixPath: 
+            path = args.path
+        elif type(args.path) is str:
+            path = Path(args.path)
+        else:
+            raise ValueError(f"Path must be str or PosixPath")
+        path.mkdir(parents=True, exist_ok=True)
+
+    def add_arguments(self, defaults):
+        self.add_argument(
+            "-path",
+            nargs="?",
+            default=defaults["path"],
+            help="Path to create the file system.")
+
+        self.add_argument(
+            "-v",
+            "--verbose",
+            action="store_true",
+            default=False,
+            help="Verbose mode.")
+        
+        self.add_argument(
+            "-t",
+            "--test",
+            action="store_true",
+            default=False,
+            help="Just test the model.")
+
+        self.add_argument(
+            "-exp_name",
+            nargs="?",
+            default=defaults["exp_name"],
+            help="Name of the experiment.")
+
+        self.add_argument(
+            "-e",
+            "--epochs",
+            type=int,
+            default=defaults["epochs"],
+            help="Number of epochs.")
+
+        self.add_argument(
+            "-a",
+            "--alpha",
+            type=float,
+            default=defaults["alpha"],
+            help="Learning rate")
+
+        self.add_argument(
+            "-g",
+            "--gamma",
+            type=float,
+            default=defaults["gamma"],
+            help="Discount factor.")
+        
+
+        self.add_argument(
+            "-eps",
+            "--epsilon",
+            type=float,
+            default=defaults["epsilon"],
+            help="Maximum exploration rate.")
+        
+        self.add_argument(
+            "-d",
+            "--decay",
+            type=float,
+            default=defaults["epsilon_decay"],
+            help="Rate of decay of exploration rate.")
+        
+        self.add_argument(
+            "-m",
+            "--epsilon_min",
+            type=float,
+            default=defaults["epsilon_min"],
+            help="Minimum exploration rate.")
+        
+        self.add_argument(
+            "-pat",
+            "--patience",
+            type=int,
+            default=defaults["patience"],
+            help="Patience with the environment.")
+
+        self.add_argument(
+            "-b",
+            "--bins",
+            type=int,
+            default=defaults["bins"],
+            help="Number of bins for the discretization.")
