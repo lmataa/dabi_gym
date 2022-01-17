@@ -3,34 +3,33 @@ from IPython.display import clear_output
 from tqdm import tqdm
 import sys
 
-def q_table_discrete(state_space, action_space, bin_size = 30):
+def q_table_discrete(env, bin_size = 30):
     """
     Creates a Q-table for the given state and action spaces.
+    NOTE: Definetly not the best way to do this.
     """
-    bins = []
-    bins.append(np.linspace(-3, -0.1, bin_size))
-    bins.append(np.linspace(-0.1, -0.05, bin_size))
-    bins.append(np.linspace(-0.05, -0.025, bin_size))
-    bins.append(np.linspace(-0.025, -0.0125, bin_size))
-    bins.append(np.linspace(-0.0125, 0, bin_size))
-    bins.append(np.linspace(0, 0.2, bin_size))
-    bins.append(np.linspace(0.2, 0.55, bin_size))
-    bins.append(np.linspace(0.55, 3, bin_size))
 
-    q_table = np.random.uniform(low=-1,high=1,size=([bin_size] * state_space + [action_space]))
+    bins = np.linspace(-2, 2, bin_size)
+    print("bins ", bins)
+    q_table = np.random.uniform(low=-2, high=2, size=([bin_size] * env.observation_space.shape[0] + [env.action_space.n]))
     return q_table, bins
 
 def discrete(state, bins):
-    index = []
-    for i in range(len(state)): 
-        index.append(np.digitize(state[i], bins[i]) - 1)
-    return tuple(index)
+    # NOTE: do this better
+    #index = []
+    #for i in range(len(state)): 
+    #    index.append(np.digitize(state[i], bins[i]) - 1)
+    #return tuple(index)
+    print("state: ", state)
+    print("bins: ", bins)
+    print(np.digitize(state, bins) - 1)
+    return np.digitize(state, bins) -1
 
 
 def q_learning(env, alpha=0.7, gamma=0.5, epsilon=0.5, epsilon_decay=0.0019, epsilon_min=0.01, episodes=500, bin_size = 9, render=False):
     # q_table = np.zeros([env.observation_space.shape[0], env.action_space.n])
     print("Allocating memory for Q-table ...")
-    q_table, bins = q_table_discrete(env.observation_space.shape[0], env.action_space.n, bin_size=bin_size)
+    q_table, bins = q_table_discrete(env, bin_size=bin_size)
     print(q_table.shape)
     print(len(bins))
     print(len(env.reset()))

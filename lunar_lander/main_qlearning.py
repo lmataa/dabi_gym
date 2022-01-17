@@ -42,13 +42,13 @@ def main(args=None):
 
 
 if __name__ == '__main__':
-    EXP_NAME = "QLearning_LunarLander_000"
+    EXP_NAME = "test_q_learning_" + np.datetime64('now').astype(str)
     DEFAULT_OUTPUT_PATH = Path(__file__).parent/ 'output'
     DEFAULT_EPOCHS = 1000
     DEFAULT_ALPHA = 0.7
     DEFAULT_GAMMA = 0.5
-    DEFAULT_EPSILON = 0.5
-    DEFAULT_EPSILON_DECAY = 0.000019
+    DEFAULT_EPSILON = 1
+    DEFAULT_EPSILON_DECAY = 0.0001
     DEFAULT_EPSILON_MIN = 0.01
     DEFAULT_PATIENCE = 100
     DEFAULT_BINS = 10
