@@ -31,7 +31,7 @@ header-includes:
 
 Reinforcement learning is a powerful technique for training a computer to learn from experience. It is a method of constructing a policy that is able to learn from experience without being explicitly programmed.
 
-There are many different types of reinforcement learning algorithms, but the most popular ones are Q-learning and SARSA (both seen in class during the course). All of them are part of Temporal Difference Learning.
+There are many different types of reinforcement learning algorithms, but the most popular ones are Q-learning and SARSA (both seen in class during the course). All of them are based on Temporal Difference Learning (TDL).
 
 # Q Learning basics
 
